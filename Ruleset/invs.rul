@@ -31,3 +31,21 @@ invs:
     costs:
       STR_LEFT_HAND: 999
       STR_RIGHT_HAND: 999
+
+  - id: STR_BACK_PACK # 3x2
+    slots:
+      - [0, 0]
+      - [1, 0]
+      - [2, 0]
+      - [0, 1]
+      - [1, 1]
+      - [2, 1]
+    costs:
+      STR_BELT: 999
+      STR_GROUND: 999
+      STR_LEFT_HAND: 999
+      STR_LEFT_LEG: 999
+      STR_LEFT_SHOULDER: 999
+      STR_RIGHT_HAND: 999
+      STR_RIGHT_LEG: 999
+      STR_RIGHT_SHOULDER: 999

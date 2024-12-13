@@ -21,3 +21,19 @@ items:
 
   - type: STR_LASER_PISTOL
     weight: 100
+
+  - type: STR_ROCKET_LAUNCHER
+    weight: 100
+    bigSprite: 200
+    invWidth: 3
+    invHeight: 2
+    supportedInventorySections:
+      - STR_BACK_PACK
+
+  - type: STR_HEAVY_CANNON
+    weight: 100
+    bigSprite: 201
+    invWidth: 3
+    invHeight: 2
+    supportedInventorySections:
+      - STR_BACK_PACK

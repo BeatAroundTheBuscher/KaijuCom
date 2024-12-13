@@ -1,0 +1,15 @@
+extended:
+  tags:
+    RuleSkill:
+      SKILL_ID: int
+
+skills:
+  - type: STR_SHOOT_BACK_PACK_WEAPON
+    targetMode: 8
+    tags:
+      SKILL_ID: 1
+    costUse:
+      time: 40
+    checkHandsOnly: false
+    battleType: 1
+    compatibleWeapons: [STR_ROCKET_LAUNCHER, STR_HEAVY_CANNON]

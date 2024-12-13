@@ -1,0 +1,10 @@
+extended:
+  tags:
+    RuleSkill:
+      SKILL_ID: int
+
+soldiers:
+  - type: STR_SOLDIER
+    skillIconSprite: 1
+    skills:
+      - STR_SHOOT_BACK_PACK_WEAPON

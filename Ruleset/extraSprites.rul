@@ -17,3 +17,10 @@ extraSprites:
     subY: 40
     files:
       200: Resources/Handobs/handobs_empty.png
+
+  - type: BIGOBS.PCK # 3x2 weapons # offset 200
+    height: 32
+    width: 48
+    files:
+      200: Resources/Bigobs/rocket_launcher_3x2.png
+      201: Resources/Bigobs/heavy_cannon_3x2.png
