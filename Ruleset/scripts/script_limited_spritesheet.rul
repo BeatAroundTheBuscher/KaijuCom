@@ -1,0 +1,22 @@
+extended:
+  tags:
+    RuleArmor:
+      HAS_LIMITED_SPRITESHEET: int
+
+  scripts:
+    selectUnitSprite:
+      - new: FC_sUS_draw_limited_spritesheet
+        offset: 10 # run before FC_sUS_draw_squad_weapon
+        code: |
+          var ptr RuleArmor unitArmor;
+          var int limited_spritesheet;
+
+          unit.getRuleArmor unitArmor;
+          unitArmor.getTag limited_spritesheet Tag.HAS_LIMITED_SPRITESHEET;
+
+          if and eq limited_spritesheet 1 gt sprite_index 8 lt sprite_index 72;
+            div sprite_index 8;
+            sub sprite_index 1;
+          end;
+
+          return sprite_index;       

@@ -7,8 +7,16 @@ extraSprites:
     files:
       0: Resources/Squads/basic_squad.png
       # 8 * 10
-      40: Resources/Squads/basic_squad_rifle.png
-      48: Resources/Squads/basic_squad_laser_rifle.png
+      80: Resources/Squads/basic_squad_rifle.png
+      88: Resources/Squads/basic_squad_laser_rifle.png
+
+  - type: SMALL_TANK.PCK
+    width: 256
+    height: 400
+    subX: 32
+    subY: 40
+    files:
+      0: Resources/Small/small_tank.png
 
   - type: HANDOB.PCK
     width: 256

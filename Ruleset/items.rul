@@ -8,13 +8,13 @@ items:
     handSprite: 200
     twoHanded: false
     tags:
-      PCK_INDEX_OFFSET: 40
+      PCK_INDEX_OFFSET: 80
 
   - type: STR_LASER_RIFLE
     handSprite: 200
     twoHanded: false
     tags:
-      PCK_INDEX_OFFSET: 48
+      PCK_INDEX_OFFSET: 88
 
   - type: STR_PISTOL
     weight: 100

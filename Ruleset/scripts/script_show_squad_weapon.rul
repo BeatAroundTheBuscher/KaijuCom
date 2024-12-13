@@ -8,14 +8,13 @@ extended:
   scripts:
     selectUnitSprite:
       - new: FC_sUS_draw_squad_weapon
-        offset: 10
+        offset: 11
         code: |
-          var ptr BattleItem battleItemShield;
+          var ptr BattleItem unitItem;
           var int weapon_sprite_offset;
 
-          unit.getRightHandWeapon battleItemShield;
-          battleItemShield.getTag weapon_sprite_offset Tag.PCK_INDEX_OFFSET;
+          unit.getRightHandWeapon unitItem;
+          unitItem.getTag weapon_sprite_offset Tag.PCK_INDEX_OFFSET;
 
-          set sprite_offset weapon_sprite_offset;
-          add sprite_index sprite_offset;
+          add sprite_index weapon_sprite_offset;
           return sprite_index;
