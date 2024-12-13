@@ -14,7 +14,10 @@ extended:
           unit.getRuleArmor unitArmor;
           unitArmor.getTag limited_spritesheet Tag.HAS_LIMITED_SPRITESHEET;
 
-          if and eq limited_spritesheet 1 gt sprite_index 8 lt sprite_index 72;
+
+          # get rid of the moving sprites
+          # the drawingRoutine for 1x1 will be simplified so other things can be done properly
+          if and eq limited_spritesheet 1 gt sprite_index 8 lt sprite_index 72; 
             div sprite_index 8;
             sub sprite_index 1;
           end;

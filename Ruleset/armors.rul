@@ -18,6 +18,12 @@ armors:
     tags:
       HAS_LIMITED_SPRITESHEET: 1
 
+  - type: SECTOID_ARMOR0
+    spriteSheet: SECTOID_SQUAD.PCK
+    drawingRoutine: 4
+    tags:
+      HAS_LIMITED_SPRITESHEET: 1
+
 
   - type: STR_POWER_SUIT_UC # delete and replace with STR_WANZER_UC
     stats:

@@ -7,7 +7,7 @@ soldiers:
   - type: STR_SOLDIER
     soldierNames:
       - delete
-      - Names/Dogs.nam
+      - Names/Squads.nam
     skillIconSprite: 1
     skills:
       - STR_SHOOT_BACK_PACK_WEAPON
