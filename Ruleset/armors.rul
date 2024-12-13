@@ -1,0 +1,15 @@
+extended:
+  tags:
+    RuleArmor:
+      IS_SQUAD: int
+
+armors:
+  - type: STR_NONE_UC # delete and replace with STR_BASIC_SQUAD_NC
+    spriteSheet: BASIC_SQUAD.PCK
+    drawingRoutine: 4
+    tags:
+      IS_SQUAD: 1
+
+  - type: STR_POWER_SUIT_UC
+    stats:
+      strength: 200

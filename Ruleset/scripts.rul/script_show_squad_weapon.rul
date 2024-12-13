@@ -1,0 +1,21 @@
+extended:
+  tags:
+    RuleArmor:
+      IS_SQUAD: int
+    RuleItem: 
+      PCK_INDEX_OFFSET: int
+
+  scripts:
+    selectUnitSprite:
+      - new: FC_sUS_draw_squad_weapon
+        offset: 10
+        code: |
+          var ptr BattleItem battleItemShield;
+          var int weapon_sprite_offset;
+
+          unit.getRightHandWeapon battleItemShield;
+          battleItemShield.getTag weapon_sprite_offset Tag.PCK_INDEX_OFFSET;
+
+          set sprite_offset weapon_sprite_offset;
+          add sprite_index sprite_offset;
+          return sprite_index;
