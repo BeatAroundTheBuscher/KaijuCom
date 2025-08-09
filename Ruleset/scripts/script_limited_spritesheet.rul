@@ -1,5 +1,5 @@
 extended:
-  tagsFile: Ruleset/scripts/tags_ROSIGMA.rul
+  tagsFile: Ruleset/scripts/tags.rul
   scripts:
     selectUnitSprite:
       - new: KC_sUS_draw_limited_spritesheet
@@ -8,6 +8,7 @@ extended:
           var ptr RuleArmor unitArmor;
           var int temp;
           var int currentSquadStrength;
+          var int maxSquadStrength;
           var int currentHealth;
           var int maxHealth;
 
@@ -15,11 +16,38 @@ extended:
           unitArmor.getTag temp Tag.HAS_LIMITED_SPRITESHEET;
 
           if eq temp 1;
+            unitArmor.getTag maxSquadStrength Tag.ARMOR_MAX_SQUAD_STRENGTH;
+
+            # START --- copy paste + adapted
             unit.getHealth currentHealth;
             unit.getHealthMax maxHealth;
-            add maxHealth 1;  # make sure that currentHealth/maxHealth is below 1.0
-            unitArmor.getTag currentSquadStrength Tag.ARMOR_MAX_SQUAD_STRENGTH;
+
+            # for numbers with a rest, later add 1 to avoid showing 0
+            set temp maxHealth;
+            div temp maxSquadStrength;  # temp = modulo
+            mod currentHealth temp;
+            if eq currentHealth 0;
+              set temp 0;
+            else;
+              set temp 1;
+            end;
+
+            # only shows correct value for numbers without a rest
+            unit.getHealth currentHealth;  # we overwrote that before
+            set currentSquadStrength maxSquadStrength;
             muldiv currentSquadStrength currentHealth maxHealth;
+            add currentSquadStrength temp;
+
+            # if maxHealth/squad size does not result rest 0, then subtract by 1
+            set temp maxHealth;
+            mod temp maxSquadStrength;
+            if neq temp 0;
+              sub currentSquadStrength 1;
+            end;
+            # END --- copy paste + adapted
+
+            # shift value by 1 (5 -> 4, 1 -> 0, etc.)
+            sub currentSquadStrength 1;
 
             mul currentSquadStrength 8;
             set sprite_index currentSquadStrength;

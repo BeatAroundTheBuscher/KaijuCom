@@ -8,7 +8,7 @@ extraSprites:
       # unarmed
       0: Resources/Squads/basic_squad_rifle.png
       # rifle
-      40: Resources/Squads/basic_squad_rifle.png
+      # 40: Resources/Squads/basic_squad_rifle.png
       # 88: Resources/Squads/basic_squad_laser_rifle.png
 
   - type: SECTOID_SQUAD.PCK

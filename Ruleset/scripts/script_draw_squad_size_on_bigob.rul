@@ -8,7 +8,8 @@ extended:
           # Script default implementation:
           # add_shade new_pixel shade; return new_pixel;
           var int colorLine;
-          var int squadStrength;
+          var int currentSquadStrength;
+          var int maxSquadStrength;
           var ptr BattleUnit battleUnitSquad;
           var ptr RuleItem ruleWeaponItem;
           var ptr RuleArmor ruleArmor;
@@ -34,64 +35,74 @@ extended:
           # item.getBattleUnit battleUnitSquad;
           item.getOwner battleUnitSquad;
           battleUnitSquad.getRuleArmor ruleArmor;
-          ruleArmor.getTag squadStrength Tag.ARMOR_MAX_SQUAD_STRENGTH;
+          ruleArmor.getTag maxSquadStrength Tag.ARMOR_MAX_SQUAD_STRENGTH;
 
-          debug_log "item" item;
-          debug_log "battleUnitSquad" battleUnitSquad;
-          debug_log "ruleArmor" ruleArmor;
+          # debug_log "item" item;
+          # debug_log "battleUnitSquad" battleUnitSquad;
+          # debug_log "ruleArmor" ruleArmor;
 
-          if eq squadStrength 0;  # no squad, single unit
+          if eq maxSquadStrength 0;  # no squad, single unit
             item.getRuleItem ruleWeaponItem;
-            item.getTag squadStrength Tag.ITEM_COUNTS_AS_SQUAD_STRENGTH;
+            item.getTag maxSquadStrength Tag.ITEM_COUNTS_AS_SQUAD_STRENGTH;
 
-            debug_log "ruleWeaponItem" ruleWeaponItem;
+            # debug_log "ruleWeaponItem" ruleWeaponItem;
           end;
 
           set currentColorLine new_pixel;
           div currentColorLine 16;
           if eq currentColorLine colorLine;
 
-            if eq squadStrength 0;
+            if eq maxSquadStrength 0;
               return 0;  # hide number, also prevent div by 0 later
             end;
 
+            # START --- copy paste + adapted
             battleUnitSquad.getHealth currentHealth;
             battleUnitSquad.getHealthMax maxHealth;
 
             # for numbers with a rest, later add 1 to avoid showing 0
             set temp maxHealth;
-            div temp squadStrength;
+            div temp maxSquadStrength;  # temp = modulo
             mod currentHealth temp;
-            if eq currentHealth 1;
-              set temp 1;
-            else;
+            if eq currentHealth 0;
               set temp 0;
+            else;
+              set temp 1;
             end;
 
             # only shows correct value for numbers without a rest
             battleUnitSquad.getHealth currentHealth;  # we overwrote that before
-            muldiv squadStrength currentHealth maxHealth;
-            add squadStrength temp;
+            set currentSquadStrength maxSquadStrength;
+            muldiv currentSquadStrength currentHealth maxHealth;
+            add currentSquadStrength temp;
 
-            debug_log "new_pixel: " new_pixel;
+            # if maxHealth/squad size does not result rest 0, then subtract by 1
+            set temp maxHealth;
+            mod temp maxSquadStrength;
+            if neq temp 0;
+              sub currentSquadStrength 1;
+            end;
+            # END --- copy paste + adapted
+
+            # debug_log "new_pixel: " new_pixel;
             # each color line has 16 colors
             mod new_pixel 16;
-            debug_log "mod new_pixel: " new_pixel;
+            # debug_log "mod new_pixel: " new_pixel;
 
             # not equipped to a squad or tank or too big squad size (> 15)
-            debug_log "squadStrength: " squadStrength;
+            # debug_log "squadStrength: " currentSquadStrength;
 
-            if or eq squadStrength 0 ge squadStrength 16;
+            if or eq currentSquadStrength 0 ge currentSquadStrength 16;
               set new_pixel 0;
               return new_pixel;
 
-            else eq squadStrength 1;
+            else eq currentSquadStrength 1;
               if le new_pixel 4;
                 set new_pixel targetColor;
               else;
                 set new_pixel 0;
               end;
-            else eq squadStrength 2;
+            else eq currentSquadStrength 2;
               if or le new_pixel 1 ge new_pixel 10;
                 set new_pixel targetColor;
               else and ge new_pixel 4 lt new_pixel 8;
@@ -99,19 +110,19 @@ extended:
               else;
                 set new_pixel 0;
               end;
-            else eq squadStrength 3;
+            else eq currentSquadStrength 3;
               if or le new_pixel 6 ge new_pixel 10 eq new_pixel 8;
                 set new_pixel targetColor;
               else;
                 set new_pixel 0;
               end;
-            else eq squadStrength 4;
+            else eq currentSquadStrength 4;
               if or le new_pixel 4 eq new_pixel 8 eq new_pixel 9 eq new_pixel 10 eq new_pixel 12;
                 set new_pixel targetColor;
               else;
                 set new_pixel 0;
               end;
-            else eq squadStrength 5;
+            else eq currentSquadStrength 5;
               if or eq new_pixel 0 ge new_pixel 8;
                 set new_pixel targetColor;
               else and ge new_pixel 2 le new_pixel 6;
@@ -119,39 +130,39 @@ extended:
               else;
                 set new_pixel 0;
               end;
-            else eq squadStrength 6;
-              if or eq new_pixel 0 gt new_pixel 2;
+            else eq currentSquadStrength 6;
+              if or eq new_pixel 0 ge new_pixel 2;
                 set new_pixel targetColor;
               else;
                 set new_pixel 0;
               end;
-            else eq squadStrength 7;
+            else eq currentSquadStrength 7;
               if or le new_pixel 4 eq new_pixel 11 eq new_pixel 12;
                 set new_pixel targetColor;
               else;
                 set new_pixel 0;
               end;
-            else eq squadStrength 8;
+            else eq currentSquadStrength 8;
                 set new_pixel targetColor;
-            else eq squadStrength 9;
+            else eq currentSquadStrength 9;
               if or le new_pixel 6 ge new_pixel 8;
                 set new_pixel targetColor;
               else;
                 set new_pixel 0;
               end;
-            else eq squadStrength 10;  # print 0x0A for now
+            else eq currentSquadStrength 10;  # print 0x0A for now
                 set new_pixel targetColor;
-            else eq squadStrength 10;  # print 0x0B for now
+            else eq currentSquadStrength 10;  # print 0x0B for now
                 set new_pixel targetColor;
-            else eq squadStrength 10;  # print 0x0C for now
+            else eq currentSquadStrength 10;  # print 0x0C for now
                 set new_pixel targetColor;
-            else eq squadStrength 10;  # print 0x0D for now
+            else eq currentSquadStrength 10;  # print 0x0D for now
                 set new_pixel targetColor;
-            else eq squadStrength 10;  # print 0x0E for now
+            else eq currentSquadStrength 10;  # print 0x0E for now
                 set new_pixel targetColor;
-            else eq squadStrength 10;  # print 0x0F for now
+            else eq currentSquadStrength 10;  # print 0x0F for now
                 set new_pixel targetColor;
             end;
           end;
-          debug_log "targetColor: " targetColor;
+          # debug_log "targetColor: " targetColor;
           return new_pixel;
