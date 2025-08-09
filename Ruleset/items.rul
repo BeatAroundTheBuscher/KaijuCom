@@ -1,5 +1,5 @@
 extended:
-  tagsFile: Ruleset/scripts/tags_ROSIGMA.rul
+  tagsFile: Ruleset/scripts/tags.rul
 
 items:
   - type: STR_RIFLE
@@ -7,6 +7,8 @@ items:
     twoHanded: false
     tags:
       PCK_INDEX_OFFSET: 80
+      ITEM_SQUAD_SIZE_INDICATOR_COLOR_LINE: 8
+      ITEM_SQUAD_SIZE_INDICATOR_TARGET_COLOR: 1
 
   - type: STR_LASER_RIFLE
     handSprite: 200

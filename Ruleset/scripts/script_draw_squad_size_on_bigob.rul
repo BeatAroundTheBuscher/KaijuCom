@@ -1,2 +1,153 @@
 extended:
-  tagsFile: Ruleset/scripts/tags_ROSIGMA.rul
+  tagsFile: Ruleset/scripts/tags.rul
+  scripts:
+    recolorItemSprite:
+      - new: KC_rIS_show_squad_strength_on_item
+        offset: 10
+        code: |
+          # Script default implementation:
+          # add_shade new_pixel shade; return new_pixel;
+          var int colorLine;
+          var int squadStrength;
+          var ptr BattleUnit battleUnitSquad;
+          var ptr RuleItem ruleWeaponItem;
+          var ptr RuleArmor ruleArmor;
+          var int currentColorLine;
+          var int targetColor;  # not line
+
+          var int currentHealth;
+          var int maxHealth;
+          var int temp;
+
+          item.getTag colorLine Tag.ITEM_SQUAD_SIZE_INDICATOR_COLOR_LINE;
+          if eq colorLine 0;
+            # debug_log "End due to ITEM_SQUAD_SIZE_INDICATOR_COLOR_LINE";
+            return new_pixel;
+          end;
+
+          item.getTag targetColor Tag.ITEM_SQUAD_SIZE_INDICATOR_TARGET_COLOR;
+          if eq targetColor 0;
+            # debug_log "End due to ITEM_SQUAD_SIZE_INDICATOR_TARGET_COLOR";
+            return new_pixel;
+          end;
+
+          # item.getBattleUnit battleUnitSquad;
+          item.getOwner battleUnitSquad;
+          battleUnitSquad.getRuleArmor ruleArmor;
+          ruleArmor.getTag squadStrength Tag.ARMOR_MAX_SQUAD_STRENGTH;
+
+          debug_log "item" item;
+          debug_log "battleUnitSquad" battleUnitSquad;
+          debug_log "ruleArmor" ruleArmor;
+
+          if eq squadStrength 0;  # no squad, single unit
+            item.getRuleItem ruleWeaponItem;
+            item.getTag squadStrength Tag.ITEM_COUNTS_AS_SQUAD_STRENGTH;
+
+            debug_log "ruleWeaponItem" ruleWeaponItem;
+          end;
+
+          set currentColorLine new_pixel;
+          div currentColorLine 16;
+          if eq currentColorLine colorLine;
+
+            if eq squadStrength 0;
+              return 0;  # hide number, also prevent div by 0 later
+            end;
+
+            battleUnitSquad.getHealth currentHealth;
+            battleUnitSquad.getHealthMax maxHealth;
+
+            # for numbers with a rest, later add 1 to avoid showing 0
+            set temp maxHealth;
+            div temp squadStrength;
+            mod currentHealth temp;
+            if eq currentHealth 1;
+              set temp 1;
+            else;
+              set temp 0;
+            end;
+
+            # only shows correct value for numbers without a rest
+            battleUnitSquad.getHealth currentHealth;  # we overwrote that before
+            muldiv squadStrength currentHealth maxHealth;
+            add squadStrength temp;
+
+            debug_log "new_pixel: " new_pixel;
+            # each color line has 16 colors
+            mod new_pixel 16;
+            debug_log "mod new_pixel: " new_pixel;
+
+            # not equipped to a squad or tank or too big squad size (> 15)
+            debug_log "squadStrength: " squadStrength;
+
+            if or eq squadStrength 0 ge squadStrength 16;
+              set new_pixel 0;
+              return new_pixel;
+
+            else eq squadStrength 1;
+              if or eq new_pixel 1 eq new_pixel 2 eq new_pixel 7;
+                set new_pixel targetColor;
+              else;
+                set new_pixel 0;
+              end;
+            else eq squadStrength 2;
+              if or eq new_pixel 0 eq new_pixel 1 eq new_pixel 3 eq new_pixel 4 ge new_pixel 6;
+                set new_pixel targetColor;
+              else;
+                set new_pixel 0;
+              end;
+            else eq squadStrength 3;
+              if or eq new_pixel 0 eq new_pixel 1 eq new_pixel 2 eq new_pixel 3 ge new_pixel 6;
+                set new_pixel targetColor;
+              else;
+                set new_pixel 0;
+              end;
+            else eq squadStrength 4;
+              if or eq new_pixel 1 eq new_pixel 2 eq new_pixel 5 ge new_pixel 6;
+                set new_pixel targetColor;
+              else;
+                set new_pixel 0;
+              end;
+            else eq squadStrength 5;
+              if or eq new_pixel 0 eq new_pixel 2 eq new_pixel 3 eq new_pixel 5 ge new_pixel 6;
+                set new_pixel targetColor;
+              else;
+                set new_pixel 0;
+              end;
+            else eq squadStrength 6;
+              # can if or only use 5 conditions?
+              # if or eq new_pixel 0 eq new_pixel 2 eq new_pixel 3 eq new_pixel 4 eq new_pixel 5 ge new_pixel 6;
+              if or eq new_pixel 0 eq new_pixel 2 eq new_pixel 3 eq new_pixel 4 eq new_pixel 5;
+                set new_pixel targetColor;
+              else ge new_pixel 6;
+                set new_pixel targetColor;
+              else;
+                set new_pixel 0;
+              end;
+            else eq squadStrength 7;
+              if or eq new_pixel 0 eq new_pixel 1 eq new_pixel 2 eq new_pixel 7;
+                set new_pixel targetColor;
+              else;
+                set new_pixel 0;
+              end;
+            else eq squadStrength 8;
+                set new_pixel targetColor;
+            else eq squadStrength 9;
+                set new_pixel targetColor;
+            else eq squadStrength 10;  # print 0x0A for now
+                set new_pixel targetColor;
+            else eq squadStrength 10;  # print 0x0B for now
+                set new_pixel targetColor;
+            else eq squadStrength 10;  # print 0x0C for now
+                set new_pixel targetColor;
+            else eq squadStrength 10;  # print 0x0D for now
+                set new_pixel targetColor;
+            else eq squadStrength 10;  # print 0x0E for now
+                set new_pixel targetColor;
+            else eq squadStrength 10;  # print 0x0F for now
+                set new_pixel targetColor;
+            end;
+          end;
+          debug_log "targetColor: " targetColor;
+          return new_pixel;

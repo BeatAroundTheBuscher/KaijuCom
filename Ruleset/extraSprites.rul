@@ -35,6 +35,14 @@ extraSprites:
     files:
       200: Resources/Handobs/handobs_empty.png
 
+  - type: BIGOBS.PCK # extra numbers
+    height: 256
+    width: 384
+    subX: 32
+    subY: 48
+    files:
+      0: Resources/Bigobs/BIGOBS.PNG
+
   - type: BIGOBS.PCK # 3x2 weapons # offset 200
     height: 32
     width: 48
