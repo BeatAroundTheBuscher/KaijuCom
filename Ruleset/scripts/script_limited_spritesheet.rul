@@ -1,13 +1,5 @@
 extended:
-  tags:
-    RuleArmor:
-      HAS_LIMITED_SPRITESHEET: int
-      ARMOR_MAX_SQUAD_STRENGTH: int
-    BattleUnit:
-      CURRENT_SQUAD_STRENGTH: int
-    RuleItem:
-      ITEM_SPRITESHEET_OFFSET: int
-
+  tagsFile: Ruleset/scripts/tags_ROSIGMA.rul
   scripts:
     selectUnitSprite:
       - new: KC_sUS_draw_limited_spritesheet

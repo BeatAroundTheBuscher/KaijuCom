@@ -1,0 +1,15 @@
+extended:
+  tags:
+    BattleUnit:
+      CURRENT_SQUAD_STRENGTH: int
+    RuleItem:
+      ITEM_CAN_DESTROY_MULTIPLE_MEMBERS: int
+      ITEM_COUNTS_AS_SQUAD_STRENGTH: int
+      ITEM_SPRITESHEET_OFFSET: int
+      PCK_INDEX_OFFSET: int
+    RuleArmor:
+      ARMOR_MAX_SQUAD_STRENGTH: int
+      HAS_LIMITED_SPRITESHEET: int
+      IS_SQUAD: int
+    RuleSkill:
+      SKILL_ID: int

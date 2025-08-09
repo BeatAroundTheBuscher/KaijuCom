@@ -1,9 +1,5 @@
 extended:
-  tags:
-    RuleArmor:
-      IS_SQUAD: int
-    RuleItem:
-      PCK_INDEX_OFFSET: int
+  tagsFile: Ruleset/scripts/tags_ROSIGMA.rul
 
   scripts:
     selectUnitSprite:

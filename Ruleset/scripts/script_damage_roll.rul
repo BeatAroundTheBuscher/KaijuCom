@@ -1,12 +1,5 @@
 extended:
-  tags:
-    BattleUnit:
-      CURRENT_SQUAD_STRENGTH: int
-    RuleItem:
-      ITEM_CAN_DESTROY_MULTIPLE_MEMBERS: int
-      ITEM_COUNTS_AS_SQUAD_STRENGTH: int
-    RuleArmor:
-      ARMOR_MAX_SQUAD_STRENGTH: int
+  tagsFile: Ruleset/scripts/tags_ROSIGMA.rul
   scripts:
     damageUnit:
       - new: KC_dU_roll_damage

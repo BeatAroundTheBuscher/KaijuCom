@@ -1,7 +1,5 @@
 extended:
-  tags:
-    RuleItem: 
-      PCK_INDEX_OFFSET: int
+  tagsFile: Ruleset/scripts/tags_ROSIGMA.rul
 
 items:
   - type: STR_RIFLE

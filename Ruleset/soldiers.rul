@@ -1,7 +1,5 @@
 extended:
-  tags:
-    RuleSkill:
-      SKILL_ID: int
+  tagsFile: Ruleset/scripts/tags_ROSIGMA.rul
 
 soldiers:
   - type: STR_SOLDIER

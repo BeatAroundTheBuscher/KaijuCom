@@ -1,9 +1,5 @@
 extended:
-  tags:
-    RuleArmor:
-      IS_SQUAD: int
-      HAS_LIMITED_SPRITESHEET: int
-      ARMOR_MAX_SQUAD_STRENGTH: int
+  tagsFile: Ruleset/scripts/tags_ROSIGMA.rul
 
 armors:
   - type: STR_NONE_UC # delete and replace with STR_BASIC_SQUAD_NC
