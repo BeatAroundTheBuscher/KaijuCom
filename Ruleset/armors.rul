@@ -1,5 +1,5 @@
 extended:
-  tagsFile: Ruleset/scripts/tags_ROSIGMA.rul
+  tagsFile: Ruleset/scripts/tags.rul
 
 armors:
   - type: STR_NONE_UC # delete and replace with STR_BASIC_SQUAD_NC

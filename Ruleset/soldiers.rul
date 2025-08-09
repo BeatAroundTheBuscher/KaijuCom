@@ -1,5 +1,5 @@
 extended:
-  tagsFile: Ruleset/scripts/tags_ROSIGMA.rul
+  tagsFile: Ruleset/scripts/tags.rul
 
 soldiers:
   - type: STR_SOLDIER
