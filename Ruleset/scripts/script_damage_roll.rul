@@ -1,0 +1,74 @@
+extended:
+  tags:
+    BattleUnit:
+      CURRENT_SQUAD_STRENGTH: int
+    RuleItem:
+      ITEM_CAN_DESTROY_MULTIPLE_MEMBERS: int
+      ITEM_COUNTS_AS_SQUAD_STRENGTH: int
+    RuleArmor:
+      ARMOR_MAX_SQUAD_STRENGTH: int
+  scripts:
+    damageUnit:
+      - new: KC_dU_roll_damage
+        offset: 10
+        code: |
+          # either current squad strength or multiple attacks for a single unit
+          var int currentSquadStrength;
+          var int canDestroyMultipleMembers;
+          var int randomNumber;
+          var int damageRange;
+          var int damageType;  # for now without resistances
+          var int damageMax;
+          var int targetArmorValue;
+          var int targetMaxSquadStrength;
+          var int targetMaxHealth;
+          var ptr RuleItem ruleWeaponItem;
+
+          attacker.getTag currentSquadStrength Tag.CURRENT_SQUAD_STRENGTH;
+          if eq currentSquadStrength 0;  # no squad, single unit
+            weapon_item.getRuleItem ruleWeaponItem;
+            ruleWeaponItem.getTag currentSquadStrength Tag.ITEM_COUNTS_AS_SQUAD_STRENGTH;
+          end;
+
+          if eq currentSquadStrength 0;  # still zero
+            debug_log "KC_dU_roll_damage: Forgot a value for this unit?" attacker;
+            debug_log "KC_dU_roll_damage: Forgot a value for this item?" weapon_item;
+            set currentSquadStrength 1;
+          end;
+
+          # ammo item information
+          damaging_item.getTag canDestroyMultipleMembers Tag.ITEM_CAN_DESTROY_MULTIPLE_MEMBERS;
+          damaging_item.getRuleItem ruleWeaponItem;
+          ruleWeaponItem.getPower damageRange;
+          mul damageRange 2;
+
+          unit.getArmor targetArmorValue side;
+          unit.getHealthMax targetMaxHealth;
+          unit.getTag targetMaxSquadStrength Tag.ARMOR_MAX_SQUAD_STRENGTH;
+
+          if eq targetMaxSquadStrength 0;
+            set targetMaxSquadStrength 1;
+          end;
+
+          if neq canDestroyMultipleMembers 1;
+            div targetMaxHealth targetMaxSquadStrength;
+          end;
+
+          loop var i currentSquadStrength;  # loop for each indiviual squad shot
+            battle_game.randomRange randomNumber 0 damageRange;
+            sub randomNumber targetArmorValue;
+            if gt randomNumber 0;
+              if or eq canDestroyMultipleMembers 1 eq targetMaxSquadStrength 1;
+                set to_health randomNumber;
+              else;
+                set to_health randomNumber;
+                limit_upper to_health targetMaxHealth;
+              end;
+            end;
+          end;
+
+          # for now only health damage
+          set to_stun 0;
+          set to_wound 0;
+          set to_armor 0;
+          return;
