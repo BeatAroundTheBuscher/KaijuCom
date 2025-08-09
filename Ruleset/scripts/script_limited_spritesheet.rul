@@ -2,24 +2,37 @@ extended:
   tags:
     RuleArmor:
       HAS_LIMITED_SPRITESHEET: int
+      ARMOR_MAX_SQUAD_STRENGTH: int
+    BattleUnit:
+      CURRENT_SQUAD_STRENGTH: int
+    RuleItem:
+      ITEM_SPRITESHEET_OFFSET: int
 
   scripts:
     selectUnitSprite:
-      - new: FC_sUS_draw_limited_spritesheet
+      - new: KC_sUS_draw_limited_spritesheet
         offset: 10 # run before FC_sUS_draw_squad_weapon
         code: |
           var ptr RuleArmor unitArmor;
-          var int limited_spritesheet;
+          var int temp;
+          var int currentSquadStrength;
+          var int currentHealth;
+          var int maxHealth;
 
           unit.getRuleArmor unitArmor;
-          unitArmor.getTag limited_spritesheet Tag.HAS_LIMITED_SPRITESHEET;
+          unitArmor.getTag temp Tag.HAS_LIMITED_SPRITESHEET;
 
+          if eq temp 1;
+            unit.getHealth currentHealth;
+            unit.getHealthMax maxHealth;
+            add maxHealth 1;  # make sure that currentHealth/maxHealth is below 1.0
+            unitArmor.getTag currentSquadStrength Tag.ARMOR_MAX_SQUAD_STRENGTH;
+            muldiv currentSquadStrength currentHealth maxHealth;
 
-          # get rid of the moving sprites
-          # the drawingRoutine for 1x1 will be simplified so other things can be done properly
-          if and eq limited_spritesheet 1 gt sprite_index 8 lt sprite_index 72; 
-            div sprite_index 8;
-            sub sprite_index 1;
+            mul currentSquadStrength 8;
+            set sprite_index currentSquadStrength;
+            unit.getDirection temp;
+            add sprite_index temp;
           end;
 
-          return sprite_index;       
+          return sprite_index;

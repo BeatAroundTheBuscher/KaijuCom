@@ -3,13 +3,14 @@ extended:
     RuleArmor:
       IS_SQUAD: int
       HAS_LIMITED_SPRITESHEET: int
+      ARMOR_MAX_SQUAD_STRENGTH: int
 
 armors:
   - type: STR_NONE_UC # delete and replace with STR_BASIC_SQUAD_NC
     spriteSheet: BASIC_SQUAD.PCK
     drawingRoutine: 4
     tags:
-      IS_SQUAD: 1
+      ARMOR_MAX_SQUAD_STRENGTH: 5
       HAS_LIMITED_SPRITESHEET: 1
 
   - type: STR_PERSONAL_ARMOR_UC

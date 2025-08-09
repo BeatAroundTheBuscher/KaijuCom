@@ -2,12 +2,12 @@ extended:
   tags:
     RuleArmor:
       IS_SQUAD: int
-    RuleItem: 
+    RuleItem:
       PCK_INDEX_OFFSET: int
 
   scripts:
     selectUnitSprite:
-      - new: FC_sUS_draw_squad_weapon
+      - new: KC_sUS_draw_squad_weapon
         offset: 11
         code: |
           var ptr BattleItem unitItem;

@@ -5,10 +5,11 @@ extraSprites:
     subX: 32
     subY: 40
     files:
-      0: Resources/Squads/basic_squad.png
-      # 8 * 10
-      80: Resources/Squads/basic_squad_rifle.png
-      88: Resources/Squads/basic_squad_laser_rifle.png
+      # unarmed
+      0: Resources/Squads/basic_squad_rifle.png
+      # rifle
+      40: Resources/Squads/basic_squad_rifle.png
+      # 88: Resources/Squads/basic_squad_laser_rifle.png
 
   - type: SECTOID_SQUAD.PCK
     width: 256
