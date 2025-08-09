@@ -1,0 +1,4 @@
+en-US:  # yamllint disable-line rule:empty-values
+  STR_OPENXCOM: "Kaiju-COM"
+  STR_MEGA_REAPER: "Mega Reaper"
+  STR_MEGA_TANK: "Mega Tank"

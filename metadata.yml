@@ -1,8 +1,8 @@
-name: "FrontCom"
+name: "Kaiju-Com"
 version: "0.4"
 author: "Buscher"
 description: "An epic mod with squads and wanzers"
-id: frontcom
+id: kaijucom
 isMaster: false
 
 
